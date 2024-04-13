@@ -87,7 +87,7 @@ module.exports.getOverdueBooks = async (req, res, next) => {
     for (const circulation of foundCirculations) {
         if (Date.now() > circulation.DueDate) {
             const foundBook = await Book.findOne({ BookID: circulation.BookID });
-            const fine = Date.now() - circulation.DueDate;
+            const fine = (Date.now() - circulation.DueDate) * 50;
             if (!result[foundBook.BookID]) {
                 result[foundBook.BookID] = {
                     bookName: foundBook.BookName,
@@ -112,7 +112,7 @@ module.exports.getMemberOverdueBooks = async (req, res, next) => {
     for (const circulation of foundCirculations) {
         if (Date.now() > circulation.DueDate) {
             const foundBook = await Book.findOne({ BookID: circulation.BookID });
-            const fine = Date.now() - circulation.DueDate;
+            const fine = (Date.now() - circulation.DueDate) * 50;
             if (!result[foundBook.BookID]) {
                 result[foundBook.BookID] = {
                     bookName: foundBook.BookName,
